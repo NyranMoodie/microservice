@@ -25,7 +25,7 @@ export default defineConfig({
   reporter: [['html', { open: 'never' }], [
     '@qualitywatcher/playwright-reporter',
     {
-      apiKey: process.env.QUALITY_WATCHER_API_KEY,
+      apiKey: process.env.QUALITY_WATCHER_API_KEY || "qj3i0nq4539j2r9j3i0nq4539j2r9j3i0nq4539j2r9j3i0nq4539j2r9",
       projectId: process.env.QUALITY_WATCHER_PROJECT_ID || "8",
       testRunName: `${new Date().toLocaleDateString(
         'en-US'
