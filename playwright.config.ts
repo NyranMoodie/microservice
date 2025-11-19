@@ -26,7 +26,7 @@ export default defineConfig({
     '@qualitywatcher/playwright-reporter',
     {
       apiKey: process.env.QUALITY_WATCHER_API_KEY,
-      projectId: process.env.QUALITY_WATCHER_PROJECT_ID,
+      projectId: process.env.QUALITY_WATCHER_PROJECT_ID || "8",
       testRunName: `${new Date().toLocaleDateString(
         'en-US'
       )} - automated run`,
