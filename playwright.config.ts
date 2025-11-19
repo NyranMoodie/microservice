@@ -22,21 +22,23 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [['html', { open: 'never' }], [
-    '@qualitywatcher/playwright-reporter',
-    {
-      apiKey: process.env.QUALITY_WATCHER_API_KEY || "qj3i0nq4539j2r9j3i0nq4539j2r9j3i0nq4539j2r9j3i0nq4539j2r9",
-      projectId: process.env.QUALITY_WATCHER_PROJECT_ID || "8",
-      testRunName: `${new Date().toLocaleDateString(
-        'en-US'
-      )} - automated run`,
-      description: `triggered by automated run`,
-      includeAllCases: true, // true/false
-      complete: true, // optional - mark test run as completed to lock results
-      includeCaseWithoutId: true, // optional - store results without mapping suite and case IDs
-      excludeSkipped: false, // optional - whether or not to track skipped results
-    },
-  ],],
+  reporter: process.env.CI 
+    ? [['html', { open: 'never' }], ['list']]
+    : [['html', { open: 'never' }], [
+      '@qualitywatcher/playwright-reporter',
+      {
+        apiKey: process.env.QUALITY_WATCHER_API_KEY || "qj3i0nq4539j2r9j3i0nq4539j2r9j3i0nq4539j2r9",
+        projectId: process.env.QUALITY_WATCHER_PROJECT_ID || "8",
+        testRunName: `${new Date().toLocaleDateString(
+          'en-US'
+        )} - automated run`,
+        description: `triggered by automated run`,
+        includeAllCases: true, // true/false
+        complete: true, // optional - mark test run as completed to lock results
+        includeCaseWithoutId: true, // optional - store results without mapping suite and case IDs
+        excludeSkipped: false, // optional - whether or not to track skipped results
+      },
+    ],],
   /* Timeout for API requests */
   timeout: 30000,
 
@@ -53,9 +55,7 @@ export default defineConfig({
   projects: [
     {
       name: 'api-tests',
-      use: {
-        ...devices['Desktop Chrome'],
-      },
+      // API tests don't need browser devices
     },
   ],
 
