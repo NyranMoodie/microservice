@@ -18,6 +18,12 @@ jobs:
       - name: Run Playwright tests
         env:
           CI: true
+          REST_API_BASE_URL: ${{ secrets.REST_API_BASE_URL }}
+          JSON_API_BASE_URL: ${{ secrets.JSON_API_BASE_URL }}
+          TRIALS_API_BASE_URL: ${{ secrets.TRIALS_API_BASE_URL }}
+          API_TIMEOUT: ${{ secrets.API_TIMEOUT }}
+          QUALITY_WATCHER_API_KEY: ${{ secrets.QUALITY_WATCHER_API_KEY }}
+          QUALITY_WATCHER_PROJECT_ID: ${{ secrets.QUALITY_WATCHER_PROJECT_ID }}
         run: bun run test:api
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
